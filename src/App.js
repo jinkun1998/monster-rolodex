@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Component } from "react";
 
@@ -7,6 +6,7 @@ class App extends Component {
     super();
     this.state = {
       monsters: [],
+      keySearch: ''
     };
   }
 
@@ -19,11 +19,24 @@ class App extends Component {
         }))
   }
 
+  onSearchChange = (event) => {
+    return this.setState({ keySearch: event.target.value.toLocaleLowerCase() })
+  }
+
   render() {
+    const { monsters, keySearch } = this.state
+    const { onSearchChange } = this
+
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(keySearch)
+    })
+
     return (
       <div className="App">
-        {this.state.monsters.map((monster) => {
-          return <h1>{monster.name}</h1>;
+        <input className="App-search" datatype="search" placeholder="type to search" onChange={onSearchChange} />
+
+        {filteredMonsters.map((monster) => {
+          return <h1 key={monster.id}>{monster.name}</h1>;
         })}
       </div>
     );
