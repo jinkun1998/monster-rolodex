@@ -76,7 +76,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    console.log("newFilter triggered")
     const newFilteredMonsters = monsters
       .filter((monster) => monster.name.toLocaleLowerCase().includes(searchString))
     setFilteredMonsters(newFilteredMonsters)
